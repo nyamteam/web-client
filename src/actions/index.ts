@@ -37,19 +37,19 @@ export const login = (username: string, password: string) => {
                 password: password,
             })
         })
-            .then(function(response:any) {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
-                }
-                return response.json();
-            })
-            .then(function(user:any) {
-                dispatch(loggedIn(user.user.email))
-                dispatch(push('/'))
-            })
-            .catch(function(err:any) {
-				console.log(err)
-			})
+        .then(function(response:any) {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return response.json();
+        })
+        .then(function(user:any) {
+            dispatch(loggedIn(user.user.email))
+            dispatch(push('/'))
+        })
+        .catch(function(err:any) {
+            console.log(err)
+        })
     }
 }
 
@@ -61,7 +61,16 @@ const loggedOut = () => {
 
 export const logout = () => {
     return (dispatch: Dispatch<any>) => {
-        dispatch(loggedOut())
-        dispatch(push('/login'))
+        fetch('//localhost:1337/logout')
+        .then(function(response:any) {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            dispatch(loggedOut())
+            dispatch(push('/login'))
+        })
+        .catch(function(err:any) {
+            console.log(err)
+        })
     }
 }
