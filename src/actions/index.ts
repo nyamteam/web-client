@@ -1,5 +1,6 @@
 import { Action, Dispatch } from 'redux'
 import { push } from 'react-router-redux'
+import * as fetch from 'isomorphic-fetch'
 
 export enum ActionTypes {
     LOGIN_REQUEST,
@@ -29,10 +30,26 @@ const loggedIn = (username: string): AuthAction => {
 export const login = (username: string, password: string) => {
     return (dispatch: Dispatch<any>) => {
         dispatch(loginRequest())
-        setTimeout(() => {
-            dispatch(loggedIn(username))
-            dispatch(push('/'))
-        }, 1000)
+        fetch('//localhost:1337/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: username,
+                password: password,
+            })
+        })
+            .then(function(response:any) {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(function(user:any) {
+                dispatch(loggedIn(user.user.email))
+                dispatch(push('/'))
+            })
+            .catch(function(err:any) {
+				console.log(err)
+			})
     }
 }
 

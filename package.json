@@ -10,6 +10,8 @@
   "author": "Volcomix",
   "license": "ISC",
   "dependencies": {
+    "es6-promise": "^3.2.1",
+    "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
