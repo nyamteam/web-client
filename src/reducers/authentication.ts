@@ -3,10 +3,12 @@ import { ActionTypes, AuthAction } from '../actions'
 export interface AuthState {
     isAuthenticating: boolean
     username?: string
+    message?: string
 }
 
 const initialState: AuthState = {
-    isAuthenticating: false
+    isAuthenticating: false,
+    message: null
 }
 
 const authentication = (state = initialState, action: AuthAction): AuthState => {
@@ -15,10 +17,16 @@ const authentication = (state = initialState, action: AuthAction): AuthState => 
             return {
                 isAuthenticating: true
             }
-        case ActionTypes.LOGGEDIN:
+        case ActionTypes.LOGGEDINSUCCESS:
             return {
                 username: action.username,
                 isAuthenticating: false
+            }
+        case ActionTypes.LOGGEDINFAILED:
+            return {
+                username: action.username,
+                isAuthenticating: false,
+                message: action.message
             }
         case ActionTypes.LOGGEDOUT:
             return initialState

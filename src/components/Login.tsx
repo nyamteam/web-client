@@ -7,12 +7,16 @@ import RefreshIndicator from 'material-ui/RefreshIndicator'
 
 export interface Props {
     isAuthenticating: boolean
+    message: string
     onLogin: (username: string, password: string) => void
 }
 
 interface State {
     username: string
     password: string
+    emailError?: string
+    passwordError?: string
+    message?: string
 }
 
 const style = {
@@ -30,6 +34,9 @@ const style = {
     loading: {
         position: 'relative',
         margin: 'auto'
+    },
+    error: {
+        color: '#cc0000'
     }
 }
 
@@ -45,12 +52,22 @@ export default class Login extends React.Component<Props, State> {
 
     private handleUsernameChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        this.setState({ username: input.value, password: this.state.password })
+        let emailError = ''
+        if(input.value == '')
+        {
+            emailError = __('Email is required')
+        }
+        this.setState({ username: input.value, password: this.state.password, emailError: emailError })
     }
     
     private handlePasswordChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        this.setState({ username: this.state.username, password: input.value })
+        let passwordError = ''
+        if(input.value == '')
+        {
+            passwordError = __('Email is required')
+        }
+        this.setState({ username: this.state.username, password: input.value, passwordError: passwordError })
     }
 
     private handleSubmit = (event: React.FormEvent) => {
@@ -90,6 +107,7 @@ export default class Login extends React.Component<Props, State> {
                             value={this.state.username}
                             onChange={this.handleUsernameChange}
                             style={style.input}
+                            errorText={this.state.emailError}
                         />
                         <TextField
                             floatingLabelText={__('Password')}
@@ -97,8 +115,10 @@ export default class Login extends React.Component<Props, State> {
                             onChange={this.handlePasswordChange}
                             style={style.input}
                             type='password'
+                            errorText={this.state.passwordError}
                         />
                     </CardText>
+                    <CardText style={style.error}>{this.props.message}</CardText>
                     <CardActions style={style.actions}>{actions}</CardActions>
                 </Card>
             </form>

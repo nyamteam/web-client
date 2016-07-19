@@ -4,7 +4,8 @@ import * as fetch from 'isomorphic-fetch'
 
 export enum ActionTypes {
     LOGIN_REQUEST,
-    LOGGEDIN,
+    LOGGEDINSUCCESS,
+    LOGGEDINFAILED,
     LOGGEDOUT
 }
 
@@ -12,6 +13,7 @@ export interface AuthAction extends Action {
     type: ActionTypes
     username?: string
     password?: string
+    message?: string
 }
 
 const loginRequest = () => {
@@ -20,10 +22,17 @@ const loginRequest = () => {
     }
 }
 
-const loggedIn = (username: string): AuthAction => {
+const loggedInSuccess = (username: string): AuthAction => {
     return {
-        type: ActionTypes.LOGGEDIN,
+        type: ActionTypes.LOGGEDINSUCCESS,
         username
+    }
+}
+
+const loggedInFailed = (message: string): AuthAction => {
+    return {
+        type: ActionTypes.LOGGEDINFAILED,
+        message
     }
 }
 
@@ -37,18 +46,23 @@ export const login = (username: string, password: string) => {
                 password: password,
             })
         })
-        .then(function(response:any) {
+        .then(function(response: any) {
             if (response.status >= 400) {
                 throw new Error("Bad response from server");
             }
             return response.json();
         })
-        .then(function(user:any) {
-            dispatch(loggedIn(user.user.email))
-            dispatch(push('/'))
+        .then(function(response: any) {
+            if(response.user)
+            {
+                dispatch(loggedInSuccess(response.user.email))
+                dispatch(push('/'))
+            } else {
+                dispatch(loggedInFailed(response.message))
+            }
         })
-        .catch(function(err:any) {
-            console.log(err)
+        .catch(function(err: any) {
+            throw new Error("Error : cannot connect to the server.");
         })
     }
 }

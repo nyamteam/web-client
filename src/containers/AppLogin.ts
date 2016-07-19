@@ -7,7 +7,8 @@ import Login, { Props } from '../components/Login'
 
 const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
     return {
-        isAuthenticating: state.authentication.isAuthenticating
+        isAuthenticating: state.authentication.isAuthenticating,
+        message: state.authentication.message
     } as Props
 }
 
