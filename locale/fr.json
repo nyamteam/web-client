@@ -5,5 +5,8 @@
     "Log In": "Se connecter",
     "Home": "Accueil",
     "Logged In as": "Identifié en tant que",
-    "Log out": "Se déconnecter"
+    "Log out": "Se déconnecter",
+    "Email is required": "Votre adresse email est requise",
+    "Password is required": "Votre mot de passe est requis",
+    "Balance": "Solde : "
 }
