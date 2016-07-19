@@ -4,12 +4,15 @@ export interface AuthState {
     isAuthenticating: boolean
     isAuthenticate: boolean
     username?: string
+    balance?: number
     message?: string
 }
 
 const initialState: AuthState = {
     isAuthenticating: false,
     isAuthenticate: false,
+    username: null,
+    balance: null,
     message: null
 }
 
@@ -24,7 +27,8 @@ const authentication = (state = initialState, action: AuthAction): AuthState => 
             return {
                 username: action.username,
                 isAuthenticating: false,
-                isAuthenticate: true
+                isAuthenticate: true,
+                balance: action.balance
             }
         case ActionTypes.LOGGEDINFAILED:
             return {

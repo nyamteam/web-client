@@ -9,10 +9,11 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 export interface Props {
     username: string
+    balance: number
     onLogout: () => void
 }
 
-const Home: React.StatelessComponent<Props> = ({ username, onLogout }, context) => {
+const Home: React.StatelessComponent<Props> = ({ username, balance, onLogout }, context) => {
     return (
         <AppBar
             title={__('Home')}
@@ -27,6 +28,12 @@ const Home: React.StatelessComponent<Props> = ({ username, onLogout }, context) 
                         color: context.muiTheme.palette.secondaryTextColor
                     }}>
                         {__('Logged In as')} <strong>{username}</strong>
+                    </span>
+                    <span style={{
+                        padding: 16,
+                        color: context.muiTheme.palette.secondaryTextColor
+                    }}>
+                        {__('Balance')} <strong>{balance}</strong>
                     </span>
                     <Divider />
                     <MenuItem

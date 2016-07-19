@@ -13,6 +13,7 @@ export interface AuthAction extends Action {
     type: ActionTypes
     username?: string
     password?: string
+    balance?: number
     message?: string
 }
 
@@ -22,10 +23,11 @@ const loginRequest = () => {
     }
 }
 
-const loggedInSuccess = (username: string): AuthAction => {
+const loggedInSuccess = (username: string, balance: number): AuthAction => {
     return {
         type: ActionTypes.LOGGEDINSUCCESS,
-        username
+        username,
+        balance
     }
 }
 
@@ -55,7 +57,7 @@ export const login = (username: string, password: string) => {
         .then(function(response: any) {
             if(response.user)
             {
-                dispatch(loggedInSuccess(response.user.email))
+                dispatch(loggedInSuccess(response.user.email, response.user.balance))
                 dispatch(push('/'))
             } else {
                 dispatch(loggedInFailed(response.message))
