@@ -2,7 +2,7 @@ import { ActionTypes, AuthAction } from '../actions'
 
 export interface AuthState {
     isAuthenticating: boolean
-    isAuthenticate: boolean
+    isAuthenticated: boolean
     username?: string
     balance?: number
     message?: string
@@ -10,7 +10,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     isAuthenticating: false,
-    isAuthenticate: false,
+    isAuthenticated: false,
     username: null,
     balance: null,
     message: null
@@ -21,20 +21,20 @@ const authentication = (state = initialState, action: AuthAction): AuthState => 
         case ActionTypes.LOGIN_REQUEST:
             return {
                 isAuthenticating: true,
-                isAuthenticate: false
+                isAuthenticated: false
             }
-        case ActionTypes.LOGGEDINSUCCESS:
+        case ActionTypes.LOGGINSUCCEEDED:
             return {
                 username: action.username,
                 isAuthenticating: false,
-                isAuthenticate: true,
+                isAuthenticated: true,
                 balance: action.balance
             }
-        case ActionTypes.LOGGEDINFAILED:
+        case ActionTypes.LOGGINFAILED:
             return {
                 username: action.username,
                 isAuthenticating: false,
-                isAuthenticate: false,
+                isAuthenticated: false,
                 message: action.message
             }
         case ActionTypes.LOGGEDOUT:

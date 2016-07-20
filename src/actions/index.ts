@@ -4,8 +4,8 @@ import * as fetch from 'isomorphic-fetch'
 
 export enum ActionTypes {
     LOGIN_REQUEST,
-    LOGGEDINSUCCESS,
-    LOGGEDINFAILED,
+    LOGGINSUCCEEDED,
+    LOGGINFAILED,
     LOGGEDOUT
 }
 
@@ -25,7 +25,7 @@ const loginRequest = () => {
 
 const loggedInSuccess = (username: string, balance: number): AuthAction => {
     return {
-        type: ActionTypes.LOGGEDINSUCCESS,
+        type: ActionTypes.LOGGINSUCCEEDED,
         username,
         balance
     }
@@ -33,7 +33,7 @@ const loggedInSuccess = (username: string, balance: number): AuthAction => {
 
 const loggedInFailed = (message: string): AuthAction => {
     return {
-        type: ActionTypes.LOGGEDINFAILED,
+        type: ActionTypes.LOGGINFAILED,
         message
     }
 }

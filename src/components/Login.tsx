@@ -14,9 +14,7 @@ export interface Props {
 interface State {
     username: string
     password: string
-    emailError?: string
-    passwordError?: string
-    message?: string
+    isModified: boolean
 }
 
 const style = {
@@ -43,31 +41,39 @@ const style = {
 export default class Login extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
-        this.state = { username: '', password: '' }
+        this.state = { username: '', password: '', isModified: false }
     }
 
     private isValid() {
         return this.state.username && this.state.password
     }
 
+    private emailError() {
+        if(this.state.isModified && this.state.username == '')
+        {
+            return __('Email is required')
+        } else {
+            return null
+        }
+    }
+
+    private passwordError() {
+        if(this.state.isModified && this.state.password == '')
+        {
+            return __('Password is required')
+        } else {
+            return null
+        }
+    }
+
     private handleUsernameChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        let emailError = ''
-        if(input.value == '')
-        {
-            emailError = __('Email is required')
-        }
-        this.setState({ username: input.value, password: this.state.password, emailError: emailError })
+        this.setState({ username: input.value, password: this.state.password, isModified: true })
     }
     
     private handlePasswordChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        let passwordError = ''
-        if(input.value == '')
-        {
-            passwordError = __('Email is required')
-        }
-        this.setState({ username: this.state.username, password: input.value, passwordError: passwordError })
+        this.setState({ username: this.state.username, password: input.value, isModified: true })
     }
 
     private handleSubmit = (event: React.FormEvent) => {
@@ -77,6 +83,8 @@ export default class Login extends React.Component<Props, State> {
 
     render() {
         let actions: JSX.Element
+        let message: JSX.Element
+        
         if (this.props.isAuthenticating) {
             actions = (
                 <RefreshIndicator
@@ -97,6 +105,15 @@ export default class Login extends React.Component<Props, State> {
                 />
             )
         }
+
+        if(this.props.message) {
+            message = (
+                <CardText style={style.error}>{this.props.message}</CardText>
+            )
+        } else {
+            message = null
+        }
+
         return (
             <form onSubmit={this.handleSubmit} style={style.form}>
                 <Card>
@@ -107,7 +124,7 @@ export default class Login extends React.Component<Props, State> {
                             value={this.state.username}
                             onChange={this.handleUsernameChange}
                             style={style.input}
-                            errorText={this.state.emailError}
+                            errorText={this.emailError()}
                         />
                         <TextField
                             floatingLabelText={__('Password')}
@@ -115,10 +132,10 @@ export default class Login extends React.Component<Props, State> {
                             onChange={this.handlePasswordChange}
                             style={style.input}
                             type='password'
-                            errorText={this.state.passwordError}
+                            errorText={this.passwordError()}
                         />
                     </CardText>
-                    <CardText style={style.error}>{this.props.message}</CardText>
+                    {message}
                     <CardActions style={style.actions}>{actions}</CardActions>
                 </Card>
             </form>
