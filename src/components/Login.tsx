@@ -14,7 +14,8 @@ export interface Props {
 interface State {
     username: string
     password: string
-    isModified: boolean
+    isUsernameModified: boolean
+    isPasswordModified: boolean
 }
 
 const style = {
@@ -41,7 +42,7 @@ const style = {
 export default class Login extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
-        this.state = { username: '', password: '', isModified: false }
+        this.state = { username: '', password: '', isUsernameModified: false, isPasswordModified: false }
     }
 
     private isValid() {
@@ -49,7 +50,7 @@ export default class Login extends React.Component<Props, State> {
     }
 
     private emailError() {
-        if(this.state.isModified && this.state.username == '')
+        if(this.state.isUsernameModified && this.state.username == '')
         {
             return __('Email is required')
         } else {
@@ -58,7 +59,7 @@ export default class Login extends React.Component<Props, State> {
     }
 
     private passwordError() {
-        if(this.state.isModified && this.state.password == '')
+        if(this.state.isPasswordModified && this.state.password == '')
         {
             return __('Password is required')
         } else {
@@ -68,12 +69,12 @@ export default class Login extends React.Component<Props, State> {
 
     private handleUsernameChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        this.setState({ username: input.value, password: this.state.password, isModified: true })
+        this.setState({ username: input.value, password: this.state.password, isUsernameModified: true, isPasswordModified:this.state.isPasswordModified })
     }
     
     private handlePasswordChange = (event: React.FormEvent) => {
         const input = event.target as HTMLInputElement
-        this.setState({ username: this.state.username, password: input.value, isModified: true })
+        this.setState({ username: this.state.username, password: input.value,  isUsernameModified: this.state.isUsernameModified, isPasswordModified:true })
     }
 
     private handleSubmit = (event: React.FormEvent) => {
