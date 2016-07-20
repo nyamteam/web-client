@@ -2,11 +2,11 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import authentication, { AuthState } from './authentication'
-import general, { GeneralState } from './general'
+import general, { ErrorState } from './error'
 
 export interface AppState {
     authentication: AuthState,
-    general: GeneralState,
+    general: ErrorState,
     routing: any
 }
 

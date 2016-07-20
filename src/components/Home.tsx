@@ -35,7 +35,7 @@ const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, con
                         padding: 16,
                         color: context.muiTheme.palette.secondaryTextColor
                     }}>
-                        {__('Balance')} <strong>{user ? user.balance:null}</strong>
+                        {__('Balance')} <strong>{user && user.balance}</strong>
                     </span>
                     <Divider />
                     <MenuItem

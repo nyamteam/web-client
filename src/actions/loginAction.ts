@@ -2,7 +2,7 @@ import { Action, Dispatch } from 'redux'
 import { push } from 'react-router-redux'
 import * as fetch from 'isomorphic-fetch'
 
-import { ActionTypes } from './index'
+import { ErrorActionTypes } from './errorAction'
 
 import User from '../documents/User'
 
@@ -55,8 +55,8 @@ export const login = (username: string, password: string) => {
         .then(function(response: any) {
             if (response.status >= 400) {
                 dispatch({
-                    type: ActionTypes.THROWERROR,
-                    errorMessage: 'Error : cannot connect to the server.'
+                    type: ErrorActionTypes.THROWERROR,
+                    errorMessage: __('Error : cannot connect to the server.')
                 })
                 dispatch(push('/error'))
             }
@@ -76,8 +76,8 @@ export const login = (username: string, password: string) => {
         })
         .catch(function(err: any) {
             dispatch({
-                type: ActionTypes.THROWERROR,
-                errorMessage: 'Error : cannot connect to the server.'
+                type: ErrorActionTypes.THROWERROR,
+                errorMessage: __('Error : cannot connect to the server.')
             })
             dispatch(push('/error'))
         })
@@ -96,8 +96,8 @@ export const logout = () => {
         .then(function(response:any) {
             if (response.status >= 400) {
                 dispatch({
-                    type: ActionTypes.THROWERROR,
-                    errorMessage: 'Bad response from server.'
+                    type: ErrorActionTypes.THROWERROR,
+                    errorMessage: __('Bad response from server.')
                 })
                 dispatch(push('/error'))
             }
@@ -106,8 +106,8 @@ export const logout = () => {
         })
         .catch(function(err:any) {
             dispatch({
-                type: ActionTypes.THROWERROR,
-                errorMessage: 'Error : cannot connect to the server.'
+                type: ErrorActionTypes.THROWERROR,
+                errorMessage: __('Error : cannot connect to the server.')
             })
             dispatch(push('/error'))
         })
