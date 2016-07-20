@@ -1,10 +1,11 @@
-import { ActionTypes, AuthAction } from '../actions'
+import { LoginActionTypes, AuthAction } from '../actions/loginAction'
+import User from '../documents/User'
 
 export interface AuthState {
     isAuthenticating: boolean
     isAuthenticated: boolean
     username?: string
-    balance?: number
+    user?: User
     message?: string
 }
 
@@ -12,32 +13,32 @@ const initialState: AuthState = {
     isAuthenticating: false,
     isAuthenticated: false,
     username: null,
-    balance: null,
+    user: null,
     message: null
 }
 
 const authentication = (state = initialState, action: AuthAction): AuthState => {
     switch (action.type) {
-        case ActionTypes.LOGIN_REQUEST:
+        case LoginActionTypes.LOGIN_REQUEST:
             return {
                 isAuthenticating: true,
                 isAuthenticated: false
             }
-        case ActionTypes.LOGGINSUCCEEDED:
+        case LoginActionTypes.LOGGINSUCCEEDED:
             return {
                 username: action.username,
                 isAuthenticating: false,
                 isAuthenticated: true,
-                balance: action.balance
+                user: action.user
             }
-        case ActionTypes.LOGGINFAILED:
+        case LoginActionTypes.LOGGINFAILED:
             return {
                 username: action.username,
                 isAuthenticating: false,
                 isAuthenticated: false,
                 message: action.message
             }
-        case ActionTypes.LOGGEDOUT:
+        case LoginActionTypes.LOGGEDOUT:
             return initialState
         default:
             return state

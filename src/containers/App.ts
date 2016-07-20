@@ -1,6 +1,6 @@
 import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux'
 
-import { logout } from '../actions'
+import { logout } from '../actions/loginAction'
 import { AppState } from '../reducers'
 
 import Home, { Props } from '../components/Home'
@@ -8,7 +8,7 @@ import Home, { Props } from '../components/Home'
 const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
     return {
         username: state.authentication.username,
-        balance: state.authentication.balance
+        user: state.authentication.user
     } as Props
 }
 

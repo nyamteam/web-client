@@ -16,6 +16,7 @@ import * as config from 'config'
 import rootReducer, { AppState } from './reducers'
 import App from './containers/App'
 import AppLogin from './containers/AppLogin'
+import AppError from './containers/AppError'
 
 const browserHistory = useRouterHistory(createHistory)({
     basename: config.basePath
@@ -46,6 +47,7 @@ render(
             <Router history={history}>
                 <Route path='/' component={App} onEnter={requireAuth} />
                 <Route path='/login' component={AppLogin} />
+                <Route path='/error' component={AppError} />
             </Router>
         </MuiThemeProvider>
     </Provider>,

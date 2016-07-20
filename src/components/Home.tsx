@@ -7,13 +7,15 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
+import User from '../documents/User'
+
 export interface Props {
     username: string
-    balance: number
+    user: User
     onLogout: () => void
 }
 
-const Home: React.StatelessComponent<Props> = ({ username, balance, onLogout }, context) => {
+const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, context) => {
     return (
         <AppBar
             title={__('Home')}
@@ -33,7 +35,7 @@ const Home: React.StatelessComponent<Props> = ({ username, balance, onLogout }, 
                         padding: 16,
                         color: context.muiTheme.palette.secondaryTextColor
                     }}>
-                        {__('Balance')} <strong>{balance}</strong>
+                        {__('Balance')} <strong>{user ? user.balance:null}</strong>
                     </span>
                     <Divider />
                     <MenuItem

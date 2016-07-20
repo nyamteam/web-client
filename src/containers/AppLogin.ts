@@ -1,6 +1,6 @@
 import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux'
 
-import { login } from '../actions'
+import { login } from '../actions/loginAction'
 import { AppState } from '../reducers'
 
 import Login, { Props } from '../components/Login'
