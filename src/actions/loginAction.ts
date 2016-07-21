@@ -62,8 +62,10 @@ export const login = (username: string, password: string) => {
             if(response.user)
             {
                 let user = new User();
+                user.id = response.user.id
                 user.balance = response.user.balance
                 user.email = response.user.email
+                user.services = response.user.services
                 dispatch(loggedInSuccess(response.user.email, user))
                 dispatch(push('/'))
             } else {

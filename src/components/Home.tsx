@@ -7,7 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
-import Serviceslist from './ServicesList'
+import UserServicesList from '../containers/UserServicesList'
 
 import User from '../documents/User'
 
@@ -18,7 +18,6 @@ export interface Props {
 }
 
 const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, context) => {
-    let servicesTestList = [{id:1, title:'bla', description:'erer', price:12}, {id:2, title:'blu', description:'erer', price:12}]
     return (
         <div>
             <AppBar
@@ -52,7 +51,7 @@ const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, con
                     </IconMenu>
                 }
             />
-            <Serviceslist services={servicesTestList} />
+            <UserServicesList />
         </div>
     )
 }

@@ -3,16 +3,16 @@ import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redu
 import { ErrorState } from '../reducers/error'
 import { AppState } from '../reducers'
 
-import Error, { Props } from '../components/Error'
+import ServicesList, { Props } from '../components/ServicesList'
 
 const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
     return {
-        errorMessage: state.error.errorMessage
+        services: state.authentication.user.services
     } as Props
 }
 
-const AppError = connect(
+const UserServicesList = connect(
     mapStateToProps
-)(Error)
+)(ServicesList)
 
-export default AppError
+export default UserServicesList

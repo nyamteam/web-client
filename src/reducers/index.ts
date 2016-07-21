@@ -2,17 +2,17 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import authentication, { AuthState } from './authentication'
-import general, { ErrorState } from './error'
+import error, { ErrorState } from './error'
 
 export interface AppState {
     authentication: AuthState,
-    general: ErrorState,
+    error: ErrorState,
     routing: any
 }
 
 const rootReducer = combineReducers<AppState>({
     authentication,
-    general,
+    error,
     routing: routerReducer
 })
 

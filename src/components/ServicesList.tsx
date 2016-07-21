@@ -21,7 +21,7 @@ const ServicesList: React.StatelessComponent<Props> = ({ services }) => {
     return (
         <div>
             <List>
-                <Subheader>{__('Mes services')}</Subheader>
+                <Subheader>{__('My services')}</Subheader>
                 {services.map(service => <ServiceItem service={service} />)}
             </List>
             <FloatingActionButton secondary={true} style={style}>

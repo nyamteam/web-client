@@ -11,5 +11,9 @@
     "Balance": "Solde : ",
     "Application error": "Erreur de l'application",
     "Error : cannot connect to the server.": "Erreur : impossible de se connecter au serveur.",
-    "Bad response from server.": "Reponse incorrecte du serveur."
+    "Bad response from server.": "Reponse incorrecte du serveur.",
+    "My services": "Mes services",
+    "Edit": "Modifier",
+    "Delete": "Supprimer",
+    "more": "plus"
 }

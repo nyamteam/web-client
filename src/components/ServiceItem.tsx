@@ -16,7 +16,7 @@ const ServiceItem: React.StatelessComponent<Props> = ({ service }) => {
     const iconButtonElement = (
         <IconButton
             touch={true}
-            tooltip="{__('more'}"
+            tooltip={__('more')}
             tooltipPosition="bottom-left"
         >
             <MoreVertIcon />
