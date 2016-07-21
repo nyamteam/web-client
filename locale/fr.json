@@ -8,5 +8,8 @@
     "Log out": "Se déconnecter",
     "Email is required": "Votre adresse email est requise",
     "Password is required": "Votre mot de passe est requis",
-    "Balance": "Solde : "
+    "Balance": "Solde : ",
+    "Application error": "Erreur de l'application",
+    "Error : cannot connect to the server.": "Erreur : impossible de se connecter au serveur.",
+    "Bad response from server.": "Reponse incorrecte du serveur."
 }

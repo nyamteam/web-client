@@ -2,7 +2,7 @@ import { Action, Dispatch } from 'redux'
 import { push } from 'react-router-redux'
 import * as fetch from 'isomorphic-fetch'
 
-import { ErrorActionTypes } from './errorAction'
+import { ErrorActionTypes, throwErrror } from './errorAction'
 
 import User from '../documents/User'
 
@@ -54,11 +54,7 @@ export const login = (username: string, password: string) => {
         })
         .then(function(response: any) {
             if (response.status >= 400) {
-                dispatch({
-                    type: ErrorActionTypes.THROWERROR,
-                    errorMessage: __('Error : cannot connect to the server.')
-                })
-                dispatch(push('/error'))
+                dispatch(throwErrror(__('Bad response from server.')))
             }
             return response.json();
         })
@@ -75,11 +71,7 @@ export const login = (username: string, password: string) => {
             }
         })
         .catch(function(err: any) {
-            dispatch({
-                type: ErrorActionTypes.THROWERROR,
-                errorMessage: __('Error : cannot connect to the server.')
-            })
-            dispatch(push('/error'))
+            dispatch(throwErrror(__('Error : cannot connect to the server.')))
         })
     }
 }
@@ -95,21 +87,13 @@ export const logout = () => {
         fetch('//localhost:1337/logout')
         .then(function(response:any) {
             if (response.status >= 400) {
-                dispatch({
-                    type: ErrorActionTypes.THROWERROR,
-                    errorMessage: __('Bad response from server.')
-                })
-                dispatch(push('/error'))
+                dispatch(throwErrror(__('Bad response from server.')))
             }
             dispatch(loggedOut())
             dispatch(push('/login'))
         })
         .catch(function(err:any) {
-            dispatch({
-                type: ErrorActionTypes.THROWERROR,
-                errorMessage: __('Error : cannot connect to the server.')
-            })
-            dispatch(push('/error'))
+            dispatch(throwErrror(__('Error : cannot connect to the server.')))
         })
     }
 }

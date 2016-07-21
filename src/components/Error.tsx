@@ -10,7 +10,7 @@ const Error: React.StatelessComponent<Props> = ({ errorMessage }, context) => {
     return (
         <Card>
             <CardTitle title={__('Application error')} />
-            <CardText>{__('Application crash')}</CardText>
+            <CardText>{errorMessage}</CardText>
         </Card>
     )
 }
