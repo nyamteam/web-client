@@ -6,7 +6,6 @@ import { AppState } from '../reducers'
 import Error, { Props } from '../components/Error'
 
 const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
-    console.log(state)
     return {
         errorMessage: state.general.errorMessage
     } as Props

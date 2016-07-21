@@ -7,6 +7,8 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
+import Serviceslist from './ServicesList'
+
 import User from '../documents/User'
 
 export interface Props {
@@ -16,38 +18,42 @@ export interface Props {
 }
 
 const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, context) => {
+    let servicesTestList = [{id:1, title:'bla', description:'erer', price:12}, {id:2, title:'blu', description:'erer', price:12}]
     return (
-        <AppBar
-            title={__('Home')}
-            iconElementRight={
-                <IconMenu
-                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                    <span style={{
-                        padding: 16,
-                        color: context.muiTheme.palette.secondaryTextColor
-                    }}>
-                        {__('Logged In as')} <strong>{username}</strong>
-                    </span>
-                    <span style={{
-                        padding: 16,
-                        color: context.muiTheme.palette.secondaryTextColor
-                    }}>
-                        {__('Balance')} <strong>{user && user.balance}</strong>
-                    </span>
-                    <Divider />
-                    <MenuItem
-                        primaryText={__('Log out')}
-                        onClick={e => {
-                            e.preventDefault()
-                            onLogout()
-                        }}
-                    />
-                </IconMenu>
-            }
-        />
+        <div>
+            <AppBar
+                title={__('Home')}
+                iconElementRight={
+                    <IconMenu
+                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                    >
+                        <span style={{
+                            padding: 16,
+                            color: context.muiTheme.palette.secondaryTextColor
+                        }}>
+                            {__('Logged In as')} <strong>{username}</strong>
+                        </span>
+                        <span style={{
+                            padding: 16,
+                            color: context.muiTheme.palette.secondaryTextColor
+                        }}>
+                            {__('Balance')} <strong>{user && user.balance}</strong>
+                        </span>
+                        <Divider />
+                        <MenuItem
+                            primaryText={__('Log out')}
+                            onClick={e => {
+                                e.preventDefault()
+                                onLogout()
+                            }}
+                        />
+                    </IconMenu>
+                }
+            />
+            <Serviceslist services={servicesTestList} />
+        </div>
     )
 }
 
