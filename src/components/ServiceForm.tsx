@@ -12,9 +12,9 @@ export interface Props {
 }
 
 interface State {
-    title: string
-    description: string
-    price: number
+    title?: string
+    description?: string
+    price?: number
 }
 
 const style = {
@@ -32,7 +32,26 @@ const style = {
 }
 
 export default class ServiceForm extends React.Component<Props, State> {
-   
+    constructor(props: Props) {
+        super(props)
+        this.state = { title: '', description: '', price: null }
+    }
+
+    private handleTitleChange = (event: React.FormEvent) => {
+        const input = event.target as HTMLInputElement
+        this.setState({ title: input.value, description: this.state.description, price: this.state.price })
+    }
+    
+    private handleDescriptionChange = (event: React.FormEvent) => {
+        const input = event.target as HTMLInputElement
+        this.setState({ title: this.state.title, description: input.value, price: this.state.price })
+    }
+    
+    private handlePriceChange = (event: React.FormEvent) => {
+        const input = event.target as HTMLInputElement
+        this.setState({ title: this.state.title, description: this.state.description, price: Number(input.value) })
+    }
+
     private handleSubmit = (event: React.FormEvent) => {
         event.preventDefault()
         this.props.onAddService(this.state.title, this.state.description, this.state.price)
@@ -47,16 +66,19 @@ export default class ServiceForm extends React.Component<Props, State> {
                         <TextField
                             floatingLabelText={__('Service title')}
                             value={this.state.title}
+                            onChange={this.handleTitleChange}
                             style={style.input}
                         />
                         <TextField
                             floatingLabelText={__('Service description')}
                             value={this.state.description}
+                            onChange={this.handleDescriptionChange}
                             style={style.input}
                         />
                         <TextField
                             floatingLabelText={__('Service price')}
                             value={this.state.price}
+                            onChange={this.handlePriceChange}
                             style={style.input}
                         />
                     </CardText>

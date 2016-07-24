@@ -17,6 +17,7 @@ import rootReducer, { AppState } from './reducers'
 import App from './containers/App'
 import AppLogin from './containers/AppLogin'
 import AppError from './containers/AppError'
+import UserServicesForm from './containers/UserServicesForm'
 
 const browserHistory = useRouterHistory(createHistory)({
     basename: config.basePath
@@ -48,6 +49,7 @@ render(
                 <Route path='/' component={App} onEnter={requireAuth} />
                 <Route path='/login' component={AppLogin} />
                 <Route path='/error' component={AppError} />
+                <Route path='/addService' component={UserServicesForm} />
             </Router>
         </MuiThemeProvider>
     </Provider>,

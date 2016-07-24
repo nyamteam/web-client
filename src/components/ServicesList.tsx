@@ -11,24 +11,27 @@ import ServiceItem from './ServiceItem'
 
 export interface Props {
     services: Service[]
+    onClickAdd: () => void
 }
 
 const style = {
   marginRight: '20px',
 }
 
-const onClickHandler = function(event: any) {
-    console.log('click')
-}
-
-const ServicesList: React.StatelessComponent<Props> = ({ services }) => {
+const ServicesList: React.StatelessComponent<Props> = ({ services, onClickAdd }) => {
     return (
         <div>
             <List>
                 <Subheader>{__('My services')}</Subheader>
                 {services.map(service => <ServiceItem service={service} />)}
             </List>
-            <FloatingActionButton secondary={true} style={style} onClick={onClickHandler}>
+            <FloatingActionButton 
+                secondary={true} 
+                style={style} 
+                onClick={e => {
+                        e.preventDefault()
+                        onClickAdd()
+                    }}>
                 <ContentAdd />
             </FloatingActionButton>
         </div>

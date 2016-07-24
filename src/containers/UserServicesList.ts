@@ -1,4 +1,5 @@
 import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux'
+import { push } from 'react-router-redux'
 
 import { ErrorState } from '../reducers/error'
 import { AppState } from '../reducers'
@@ -11,8 +12,18 @@ const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
     } as Props
 }
 
+const mapDispatchToProps: MapDispatchToPropsFunction<{}, {}> = (dispatch) => {
+    return {
+        onClickAdd: () => {
+            dispatch(push('/addService'))
+        }
+    }
+}
+            
+
 const UserServicesList = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ServicesList)
 
 export default UserServicesList

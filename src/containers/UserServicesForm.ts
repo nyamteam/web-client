@@ -1,26 +1,27 @@
-import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux'
+import { Dispatch } from 'redux'
+import { connect, MapStateToProps, MapDispatchToPropsFunction, MergeProps } from 'react-redux'
 
-import { serviceFormAction } from '../actions/serviceFormAction'
+import * as serviceFormAction from '../actions/serviceFormAction'
 import { AppState } from '../reducers'
 
 import ServiceForm, { Props } from '../components/ServiceForm'
 
-const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
-    return {
-    } as Props
+const mapStateToProps: MapStateToProps<any, {}> = (state: AppState) => {
+    return state
 }
 
-const mapDispatchToProps: MapDispatchToPropsFunction<{}, {}> = (dispatch) => {
+const mergeProps: MergeProps<{}, {}, Props>  = (stateProps: AppState, dispatchProps: any, ownProps: Props) => {
     return {
-        onLogin: (title: string, description: string, price: number) => {
-            dispatch(addService(user, title, description, price))
+        onAddService: (title: string, description: string, price: number) => {
+            dispatchProps.addService(stateProps.authentication.user, title, description, price)
         }
     }
 }
 
 const UserServiceForm = connect(
     mapStateToProps,
-    mapDispatchToProps
+    serviceFormAction as any,
+    mergeProps
 )(ServiceForm)
 
 export default UserServiceForm
