@@ -17,6 +17,10 @@ const style = {
   marginRight: '20px',
 }
 
+const onClickHandler = function(event: any) {
+    console.log('click')
+}
+
 const ServicesList: React.StatelessComponent<Props> = ({ services }) => {
     return (
         <div>
@@ -24,7 +28,7 @@ const ServicesList: React.StatelessComponent<Props> = ({ services }) => {
                 <Subheader>{__('My services')}</Subheader>
                 {services.map(service => <ServiceItem service={service} />)}
             </List>
-            <FloatingActionButton secondary={true} style={style}>
+            <FloatingActionButton secondary={true} style={style} onClick={onClickHandler}>
                 <ContentAdd />
             </FloatingActionButton>
         </div>
