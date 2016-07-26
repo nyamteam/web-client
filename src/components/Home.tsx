@@ -9,15 +9,14 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 import UserServicesList from '../containers/UserServicesList'
 
-import User from '../documents/User'
+import { User } from '../documents/User'
 
 export interface Props {
-    username: string
     user: User
     onLogout: () => void
 }
 
-const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, context) => {
+const Home: React.StatelessComponent<Props> = ({ user, onLogout }, context) => {
     return (
         <div>
             <AppBar
@@ -32,7 +31,7 @@ const Home: React.StatelessComponent<Props> = ({ username, user, onLogout }, con
                             padding: 16,
                             color: context.muiTheme.palette.secondaryTextColor
                         }}>
-                            {__('Logged In as')} <strong>{username}</strong>
+                            {__('Logged In as')} <strong>{user && user.email}</strong>
                         </span>
                         <span style={{
                             padding: 16,

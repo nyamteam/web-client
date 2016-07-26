@@ -53,8 +53,6 @@ export default class Login extends React.Component<Props, State> {
         if(this.state.isUsernameModified && this.state.username == '')
         {
             return __('Email is required')
-        } else {
-            return null
         }
     }
 
@@ -62,8 +60,6 @@ export default class Login extends React.Component<Props, State> {
         if(this.state.isPasswordModified && this.state.password == '')
         {
             return __('Password is required')
-        } else {
-            return null
         }
     }
 
