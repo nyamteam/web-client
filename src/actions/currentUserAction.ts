@@ -2,13 +2,13 @@ import { Action, Dispatch } from 'redux'
 
 import { User }  from '../documents/User'
 
-export enum CurrentUserActionTypes {
-    INIT_CURRENT_USER,
-    REMOVE_CURRENT_USER
+export const CurrentUserActionTypes = {
+    INIT_CURRENT_USER: 'INIT_CURRENT_USER',
+    REMOVE_CURRENT_USER: 'REMOVE_CURRENT_USER'
 }
 
 export interface CurrentUserAction extends Action {
-    type: CurrentUserActionTypes
+    type: string
     user?: User
 }
 

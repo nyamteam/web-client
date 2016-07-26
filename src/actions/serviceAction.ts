@@ -7,10 +7,10 @@ import { ErrorActionTypes, throwErrror } from './errorAction'
 import { Service } from '../documents/Service'
 import { User } from '../documents/User'
 
-export enum ServiceActionTypes {
-    ADD_SERVICE,
-    EDIT_SERVICE,
-    DELETE_SERVICE
+export const ServiceActionTypes = {
+    ADD_SERVICE: 'ADD_SERVICE',
+    EDIT_SERVICE: 'EDIT_SERVICE',
+    DELETE_SERVICE: 'DELETE_SERVICE'
 }
 
 const deletedService = (id: string) => {
@@ -20,19 +20,24 @@ const deletedService = (id: string) => {
     }
 }
 
+export const addedService = (services: Service[]) => {
+    return {
+        type: ServiceActionTypes.ADD_SERVICE,
+        services: services
+    }
+}
+
 export interface ServiceAction extends Action {
-    type: ServiceActionTypes
+    type: string
     id?: string
-    title?: string
-    description?: User
-    price?: string
-    user?: User
+    services?: Service[]
 }
 
 export const addService = (user: User, title: string, description: string, price: number) => {
     return (dispatch: Dispatch<any>) => {
         fetch('//localhost:1337/user/'+ user.id +'/services', {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({
                 title: title,
                 description: description,
@@ -46,10 +51,11 @@ export const addService = (user: User, title: string, description: string, price
             return response.json();
         })
         .then(function(response: any) {
-            if(response.service)
+            if(response.user)
             {
-                //TODO
-                //dispatch(push('/'))
+                console.log(response.user.services)
+                dispatch(addedService(response.user.services))
+                dispatch(push('/'))
             } else {
                 //TODO
             }
@@ -63,6 +69,7 @@ export const addService = (user: User, title: string, description: string, price
 export const deleteService = (id: string) => {
     return (dispatch: Dispatch<any>) => {
         fetch('//localhost:1337/service/'+id, {
+            credentials: 'include',
             method: 'DELETE',
         })
         .then(function(response:any) {

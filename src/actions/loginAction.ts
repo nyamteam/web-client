@@ -3,19 +3,21 @@ import { push } from 'react-router-redux'
 import * as fetch from 'isomorphic-fetch'
 
 import { ErrorActionTypes, throwErrror } from './errorAction'
+import { addedService } from './serviceAction'
 import { CurrentUserActionTypes, initCurrentUser, removeCurrentUser } from './currentUserAction'
 
 import { User } from '../documents/User'
 
-export enum LoginActionTypes {
-    LOGIN_REQUEST,
-    LOGGINSUCCEEDED,
-    LOGGINFAILED,
-    LOGGEDOUT
+
+export const LoginActionTypes = {
+    LOGIN_REQUEST: 'REMOVE_CURRENT_USER',
+    LOGGINSUCCEEDED: 'LOGGINSUCCEEDED',
+    LOGGINFAILED: 'LOGGINFAILED',
+    LOGGEDOUT: 'LOGGEDOUT'
 }
 
 export interface AuthAction extends Action {
-    type: LoginActionTypes
+    type: string
     message?: string
 }
 

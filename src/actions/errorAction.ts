@@ -1,12 +1,12 @@
 import { Action, Dispatch } from 'redux'
 import { push } from 'react-router-redux'
 
-export enum ErrorActionTypes {
-    THROWERROR
+export const ErrorActionTypes = {
+    THROWERROR: 'THROWERROR'
 }
 
 export interface ErrorAction extends Action {
-    type: ErrorActionTypes
+    type: string
     errorMessage?: string
 }
 
