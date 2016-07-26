@@ -7,8 +7,7 @@ import Home, { Props } from '../components/Home'
 
 const mapStateToProps: MapStateToProps<Props, {}> = (state: AppState) => {
     return {
-        username: state.authentication.username,
-        user: state.authentication.user
+        user: state.currentUser.currentUser
     } as Props
 }
 

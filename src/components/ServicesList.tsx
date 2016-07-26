@@ -5,25 +5,26 @@ import Subheader from 'material-ui/Subheader'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
-import Service from '../documents/Service'
+import { Service } from '../documents/Service'
 
 import ServiceItem from './ServiceItem'
 
 export interface Props {
     services: Service[]
     onClickAdd: () => void
+    onDelete: (id: string) => void
 }
 
 const style = {
   marginRight: '20px',
 }
 
-const ServicesList: React.StatelessComponent<Props> = ({ services, onClickAdd }) => {
+const ServicesList: React.StatelessComponent<Props> = ({ services, onClickAdd, onDelete }) => {
     return (
         <div>
             <List>
                 <Subheader>{__('My services')}</Subheader>
-                {services.map(service => <ServiceItem service={service} />)}
+                {services.map(service => <ServiceItem key={service.id} service={service} onDelete={onDelete} />)}
             </List>
             <FloatingActionButton 
                 secondary={true} 

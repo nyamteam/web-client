@@ -4,7 +4,7 @@ import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
-import Service from '../documents/Service'
+import { Service } from '../documents/Service'
 
 export interface Props {
     id?: number

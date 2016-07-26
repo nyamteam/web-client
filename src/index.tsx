@@ -34,7 +34,8 @@ const history = syncHistoryWithStore(browserHistory, store)
 injectTapEventPlugin()
 
 const requireAuth: EnterHook = (nextState, replace) => {
-    if (!store.getState().authentication.username) {
+    if (!store.getState().currentUser.currentUser) {
+        console.log(store.getState())
         replace({
             pathname: '/login',
             state: { nextPathname: nextState.location.pathname }

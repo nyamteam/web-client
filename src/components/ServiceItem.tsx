@@ -6,13 +6,14 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import Service from '../documents/Service'
+import { Service } from '../documents/Service'
 
 export interface Props {
     service: Service
+    onDelete: (id: string) => void
 }
 
-const ServiceItem: React.StatelessComponent<Props> = ({ service }) => {
+const ServiceItem: React.StatelessComponent<Props> = ({ service, onDelete }) => {
     const iconButtonElement = (
         <IconButton
             touch={true}
@@ -25,13 +26,17 @@ const ServiceItem: React.StatelessComponent<Props> = ({ service }) => {
     const rightIconMenu = (
         <IconMenu iconButtonElement={iconButtonElement}>
             <MenuItem>{__('Edit')}</MenuItem>
-            <MenuItem>{__('Delete')}</MenuItem>
+            <MenuItem 
+                primaryText={__('Delete')}
+                onClick={e => {
+                    e.preventDefault()
+                    onDelete(service.id)
+                }} />
         </IconMenu>
     )
 
     return (
         <ListItem
-            key={service.id}
             rightIconButton={rightIconMenu}
             primaryText={service.title}
            	secondaryText={service.description}

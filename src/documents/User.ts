@@ -1,6 +1,6 @@
-import Service from './Service'
+import { Service } from './Service'
 
-export default class User {
+export interface User {
     id: string
     email: string
     balance: number

@@ -3,8 +3,9 @@ import { push } from 'react-router-redux'
 import * as fetch from 'isomorphic-fetch'
 
 import { ErrorActionTypes, throwErrror } from './errorAction'
+import { CurrentUserActionTypes, initCurrentUser, removeCurrentUser } from './currentUserAction'
 
-import User from '../documents/User'
+import { User } from '../documents/User'
 
 export enum LoginActionTypes {
     LOGIN_REQUEST,
@@ -15,9 +16,6 @@ export enum LoginActionTypes {
 
 export interface AuthAction extends Action {
     type: LoginActionTypes
-    username?: string
-    password?: string
-    user?: User
     message?: string
 }
 
@@ -27,11 +25,9 @@ const loginRequest = () => {
     }
 }
 
-const loggedInSuccess = (username: string, user: User): AuthAction => {
+const loggedInSuccess = (): AuthAction => {
     return {
-        type: LoginActionTypes.LOGGINSUCCEEDED,
-        username,
-        user
+        type: LoginActionTypes.LOGGINSUCCEEDED
     }
 }
 
@@ -61,12 +57,9 @@ export const login = (username: string, password: string) => {
         .then(function(response: any) {
             if(response.user)
             {
-                let user = new User();
-                user.id = response.user.id
-                user.balance = response.user.balance
-                user.email = response.user.email
-                user.services = response.user.services
-                dispatch(loggedInSuccess(response.user.email, user))
+                let user = response.user
+                dispatch(initCurrentUser(user))
+                dispatch(loggedInSuccess())
                 dispatch(push('/'))
             } else {
                 dispatch(loggedInFailed(response.message))
@@ -91,6 +84,7 @@ export const logout = () => {
             if (response.status >= 400) {
                 dispatch(throwErrror(__('Bad response from server.')))
             }
+            dispatch(removeCurrentUser())
             dispatch(loggedOut())
             dispatch(push('/login'))
         })

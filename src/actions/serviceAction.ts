@@ -4,13 +4,20 @@ import * as fetch from 'isomorphic-fetch'
 
 import { ErrorActionTypes, throwErrror } from './errorAction'
 
-import User from '../documents/User'
-import Service from '../documents/Service'
+import { Service } from '../documents/Service'
+import { User } from '../documents/User'
 
 export enum ServiceActionTypes {
     ADD_SERVICE,
     EDIT_SERVICE,
     DELETE_SERVICE
+}
+
+const deletedService = (id: string) => {
+    return {
+        type: ServiceActionTypes.DELETE_SERVICE,
+        id:id
+    }
 }
 
 export interface ServiceAction extends Action {
@@ -19,7 +26,7 @@ export interface ServiceAction extends Action {
     title?: string
     description?: User
     price?: string
-    user: User
+    user?: User
 }
 
 export const addService = (user: User, title: string, description: string, price: number) => {
@@ -48,6 +55,23 @@ export const addService = (user: User, title: string, description: string, price
             }
         })
         .catch(function(err: any) {
+            dispatch(throwErrror(__('Error : cannot connect to the server.')))
+        })
+    }
+}
+
+export const deleteService = (id: string) => {
+    return (dispatch: Dispatch<any>) => {
+        fetch('//localhost:1337/service/'+id, {
+            method: 'DELETE',
+        })
+        .then(function(response:any) {
+            if (response.status >= 400) {
+                dispatch(throwErrror(__('Bad response from server.')))
+            }
+            dispatch(deletedService(id))
+        })
+        .catch(function(err:any) {
             dispatch(throwErrror(__('Error : cannot connect to the server.')))
         })
     }
