@@ -21,6 +21,7 @@ const deletedService = (id: string) => {
 }
 
 export const addedService = (services: Service[]) => {
+    console.log('addedService')
     return {
         type: ServiceActionTypes.ADD_SERVICE,
         services: services
@@ -51,13 +52,10 @@ export const addService = (user: User, title: string, description: string, price
             return response.json();
         })
         .then(function(response: any) {
-            if(response.user)
+            if(response.services)
             {
-                console.log(response.user.services)
-                dispatch(addedService(response.user.services))
+                dispatch(addedService(response.services))
                 dispatch(push('/'))
-            } else {
-                //TODO
             }
         })
         .catch(function(err: any) {

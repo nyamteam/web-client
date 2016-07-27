@@ -45,6 +45,7 @@ export const login = (username: string, password: string) => {
         dispatch(loginRequest())
         fetch('//localhost:1337/login', {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({
                 email: username,
                 password: password,
